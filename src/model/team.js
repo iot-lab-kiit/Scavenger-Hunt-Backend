@@ -1,16 +1,15 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+import mongoose, { ObjectId, model, Schema } from "mongoose";
+// const { Schema } = mongoose;
 
 const TeamSchema = new Schema({
   teamName: { type: String, required: true },
-  teamLead: mongoose.ObjectId,
-  teamMembers: [mongoose.ObjectId],
-  score: Number,
-  mainQuest: [mongoose.ObjectId],
-  sideQuest: [mongoose.ObjectId],
-  route: mongoose.ObjectId,
+  teamLead: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  teamMembers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  score: { type: Number, default: 0 },
+  mainQuest: [ObjectId],
+  sideQuest: [ObjectId],
+  route: ObjectId,
 });
 
-const TeamModel = mongoose.model("Team", UserSchema);
-
-module.exports = TeamModel;
+const TeamModel = model("Team", TeamSchema);
+export default TeamModel;
