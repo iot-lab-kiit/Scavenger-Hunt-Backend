@@ -1,8 +1,8 @@
 import TeamModel from "../model/team.js";
 
 let leaderboard = "";
-setInterval(async () => {
-  console.log("fetching leaderboard...");
+async function fetchLeaderBoard() {
+  console.log("updating leaderboard....");
   const teams = await TeamModel.find().sort({
     score: -1,
   });
@@ -14,6 +14,9 @@ setInterval(async () => {
       score: team.score,
     };
   });
+}
+setInterval(async () => {
+  await fetchLeaderBoard();
 }, 2 * 1000); // Change this to 2 minutes
 
 export const getLeaderboard = async (req, res) => {
@@ -22,5 +25,8 @@ export const getLeaderboard = async (req, res) => {
 
 export const getLeaderboardNum = async (req, res) => {
   const num = req.params.num;
-  res.send(leaderboard.slice(0, num));
+  if (num === -1) {
+    await fetchLeaderBoard();
+    return res.send(leaderboard);
+  } else res.send(leaderboard.slice(0, num));
 };
