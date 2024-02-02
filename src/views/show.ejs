@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Questions</title>
+    <style>
+      body {
+        font-family: "Courier New", Courier, monospace;
+      }
+      input,
+      button {
+        padding: 10px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>All questions</h1>
+    <form action="/hints/new">
+      <button>Create a new question</button>
+    </form>
+    <ol>
+      <% for (let question of allQuestions) { %>
+      <li>
+        <ul>
+          <li>Question Id: <%= question._id %></li>
+          <li>Type: <%= question.type %></li>
+          <li>Question: <%= question.question %></li>
+          <li>Answer: <%= question.answer %></li>
+        </ul>
+        <div style="display: flex; gap: 10px">
+          <form action="/hints/edit/<%= question._id %>" method="GET">
+            <button type="submit">Edit</button>
+          </form>
+          <form
+            action="/hints/delete/<%= question._id %>?_method=DELETE"
+            method="POST"
+          >
+            <button type="submit">Delete</button>
+          </form>
+        </div>
+      </li>
+      <br />
+      <% } %>
+    </ol>
+  </body>
+</html>
