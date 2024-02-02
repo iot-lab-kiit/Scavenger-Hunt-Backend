@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create a question</title>
+    <style>
+      body {
+        font-family: "courier new", courier, monospace;
+      }
+      input,
+      button {
+        padding: 10px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Create a new Question</h1>
+    <form method="POST" action="/hints/new">
+      <label for="question">Question: </label>
+      <input
+        name="question"
+        id="question"
+        type="text"
+        placeholder="Enter the question"
+        required
+      />
+      <br /><br />
+      <label for="answer">Answer:</label>
+      <input
+        name="answer"
+        id="answer"
+        type="text"
+        placeholder="Enter the answer"
+        required
+      />
+      <br /><br />
+      <div class="type-container">
+        <label>Type:</label>
+        <input type="radio" name="type" value="main" id="main" required />
+        <label for="main">Main</label>
+        <input type="radio" name="type" value="side" id="side" required />
+        <label for="side">Side</label>
+      </div>
+      <br /><br />
+      <button type="submit">Create Question</button>
+      <button type="button" onclick="location.href = '/hints' ">Cancel</button>
+    </form>
+  </body>
+</html>

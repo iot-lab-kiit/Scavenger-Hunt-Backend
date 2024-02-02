@@ -17,7 +17,7 @@ async function fetchLeaderBoard() {
 }
 setInterval(async () => {
   await fetchLeaderBoard();
-}, 2 * 1000); // Change this to 2 minutes
+}, 10 * 1000); // Change this to 2 minutes
 
 export const getLeaderboard = async (req, res) => {
   res.send(leaderboard);

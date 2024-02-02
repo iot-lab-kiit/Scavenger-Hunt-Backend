@@ -6,13 +6,12 @@ import {
   updateTeam,
   deleteTeam,
 } from "../controllers/team.js";
-
 const router = express.Router();
 
-router.get("/", getAllTeams);
-router.get("/:id", getTeamById);
 router.post("/", createTeam);
+router.get("/", getAllTeams);
 router.put("/:id", updateTeam);
+router.get("/:id", getTeamById);
 router.delete("/:id", deleteTeam);
 
 export default router;
