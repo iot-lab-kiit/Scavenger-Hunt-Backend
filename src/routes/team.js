@@ -1,12 +1,18 @@
 import express from "express";
-import teamController from "../controllers/team.js";
+import {
+  getAllTeams,
+  getTeamById,
+  createTeam,
+  updateTeam,
+  deleteTeam,
+} from "../controllers/team.js";
 
 const router = express.Router();
 
-router.get("/", teamController.getAllTeams);
-router.get("/:id", teamController.getTeamById);
-router.post("/", teamController.createTeam);
-router.put("/:id", teamController.updateTeam);
-router.delete("/:id", teamController.deleteTeam);
+router.get("/", getAllTeams);
+router.get("/:id", getTeamById);
+router.post("/", createTeam);
+router.put("/:id", updateTeam);
+router.delete("/:id", deleteTeam);
 
 export default router;
