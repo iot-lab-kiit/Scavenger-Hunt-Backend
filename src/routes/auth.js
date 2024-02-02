@@ -2,6 +2,6 @@ import express from "express";
 import { authorizeUser } from "../controllers/auth.js";
 
 const router = express.Router();
-router.get("/", authorizeUser);
+router.post("/", authorizeUser);
 
 export default router;
