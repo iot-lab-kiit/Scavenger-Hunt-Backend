@@ -11,6 +11,7 @@ import auth from "./src/routes/auth.js";
 import hints from "./src/routes/hints.js";
 import teamRoute from "./src/routes/team.js";
 import leaderboard from "./src/routes/leaderboard.js";
+import userRoute from "./src/routes/users.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -35,6 +36,7 @@ app.use("/auth", auth);
 app.use("/hints", authToken, hints);
 app.use("/team", teamRoute);
 app.use("/leaderboard", leaderboard);
+app.use("/user", userRoute);
 
 app.use("/", (req, res) => {
   res.json({ message: "Welcome to the Scavenger Hunt API" });
