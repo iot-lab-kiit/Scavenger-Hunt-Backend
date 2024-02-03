@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const questsSchema = new Schema({
   id: { type: String, required: true },
-  hints: [{ type: Schema.Types.ObjectId, ref: "Hint" }],
+  hints: [{ type: Schema.Types.ObjectId, ref: "Hints" }],
 });
 
 const QuestsModel = model("Quests", questsSchema);

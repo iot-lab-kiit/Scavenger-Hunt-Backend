@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllQuests, getQuestById } from "../controllers/quest";
+import { getAllQuests, getQuestById } from "../controllers/quest.js";
 const router = express.Router();
 
 router.get("/", getAllQuests);

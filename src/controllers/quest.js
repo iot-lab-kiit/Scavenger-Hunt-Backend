@@ -1,8 +1,8 @@
-import QuestsModel from "../model/quests.js";
+import QuestModel from "../model/quests.js";
 
 export const getAllQuests = async (req, res) => {
   try {
-    const quests = await QuestsModel.find();
+    const quests = await QuestModel.find();
     res.json(quests);
   } catch (error) {
     res.json({ message: error });
@@ -12,7 +12,7 @@ export const getAllQuests = async (req, res) => {
 export const getQuestById = async (req, res) => {
   try {
     const id = req.params.id;
-    const quest = await QuestModels.findById(id);
+    const quest = await QuestModel.findById(id);
     res.json(quest);
   } catch (error) {
     res.json({ message: error });
