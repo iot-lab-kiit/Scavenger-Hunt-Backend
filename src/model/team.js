@@ -10,6 +10,7 @@ const TeamSchema = new Schema({
   mainQuest: [{ type: mongoose.Schema.Types.ObjectId, ref: "Hints" }],
   sideQuest: [{ type: mongoose.Schema.Types.ObjectId, ref: "Hints" }],
   route: { type: mongoose.Schema.Types.ObjectId, ref: "Route" },
+  isRegistered: { type: Boolean, default: false },
 });
 
 const TeamModel = model("Team", TeamSchema);

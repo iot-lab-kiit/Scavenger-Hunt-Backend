@@ -13,6 +13,7 @@ import quests from "./src/routes/quests.js";
 import teamRoute from "./src/routes/team.js";
 import userRoute from "./src/routes/users.js";
 import leaderboard from "./src/routes/leaderboard.js";
+import { authToken } from "./src/middlewares/auth.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -30,8 +31,6 @@ app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.set("views", path.join(__dirname, "src", "views"));
-
-import { authToken } from "./src/middlewares/auth.js";
 
 app.use("/auth", auth);
 app.use("/quests", quests);

@@ -44,6 +44,8 @@ export const updateTeam = async (req, res) => {
       route,
     } = req.body;
     const team = await TeamModel.findById(id);
+    if (team.isRegistered === "true")
+      return res.status(400).json({ message: "Team is already registered" });
     const updatedTeamMember = [...team.teamMembers, ...teamMembers];
     const updatedTeam = await TeamModel.findByIdAndUpdate(
       id,
@@ -55,13 +57,12 @@ export const updateTeam = async (req, res) => {
         mainQuest,
         sideQuest,
         route,
+        isRegistered: true,
       },
       { new: true }
     );
-
-    if (!updatedTeam) {
+    if (!updatedTeam)
       return res.status(404).json({ message: "Team not found" });
-    }
 
     res.status(200).json({
       message: "Team details updated successfully",
