@@ -9,6 +9,7 @@ import methodOverride from "method-override";
 
 import auth from "./src/routes/auth.js";
 import hints from "./src/routes/hints.js";
+import quests from "./src/routes/quests.js"
 import teamRoute from "./src/routes/team.js";
 import leaderboard from "./src/routes/leaderboard.js";
 
@@ -35,6 +36,7 @@ app.use("/auth", auth);
 app.use("/hints", authToken, hints);
 app.use("/team", teamRoute);
 app.use("/leaderboard", leaderboard);
+app.use("/quests",quests);
 
 app.use("/", (req, res) => {
   res.json({ message: "Welcome to the Scavenger Hunt API" });
