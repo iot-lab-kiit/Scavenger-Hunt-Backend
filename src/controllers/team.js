@@ -12,7 +12,7 @@ export const getAllTeams = async (req, res) => {
 export const getTeamById = async (req, res) => {
   try {
     const id = req.params.id;
-    const team = await TeamModel.get(id);
+    const team = await TeamModel.findById(id);
     res.json(team);
   } catch (error) {
     res.json({ message: error });
@@ -43,12 +43,14 @@ export const updateTeam = async (req, res) => {
       sideQuest,
       route,
     } = req.body;
+    const team = await TeamModel.findById(id);
+    const updatedTeamMember = [...team.teamMembers, ...teamMembers];
     const updatedTeam = await TeamModel.findByIdAndUpdate(
       id,
       {
         teamName,
         teamLead,
-        teamMembers,
+        teamMembers: updatedTeamMember,
         score,
         mainQuest,
         sideQuest,
