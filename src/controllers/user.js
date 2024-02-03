@@ -1,4 +1,4 @@
-import UserModel from "../model/user";
+import UserModel from "../model/user.js";
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -60,8 +60,6 @@ export const updateUser = async (req, res) => {
     res.status(500).json({ message: error });
   }
 };
-
-
 
 export const deleteUser = async (req, res) => {
   try {
