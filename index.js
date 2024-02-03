@@ -5,7 +5,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import teamRoute from "./src/routes/team.js";
 import leaderboard from "./src/routes/leaderboard.js";
-import auth from "./src/routes/auth.js";
+import userRoute from "./src/routes/users.js";
+// import auth from "./src/routes/auth.js";
 
 dotenv.config();
 const app = express();
@@ -18,7 +19,8 @@ app.use(express.json());
 
 app.use("/team", teamRoute);
 app.use("/leaderboard", leaderboard);
-app.use("/auth", auth);
+app.use("/user", userRoute);
+// app.use("/auth", auth);
 
 app.use("/", (req, res) => {
   res.send("Hello World");
