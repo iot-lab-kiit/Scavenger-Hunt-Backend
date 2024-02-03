@@ -12,7 +12,7 @@ export const getAllTeams = async (req, res) => {
 export const getTeamById = async (req, res) => {
   try {
     const id = req.params.id;
-    const team = await TeamModel.get(id);
+    const team = await TeamModel.findById(id);
     res.json(team);
   } catch (error) {
     res.json({ message: error });
@@ -43,23 +43,26 @@ export const updateTeam = async (req, res) => {
       sideQuest,
       route,
     } = req.body;
+    const team = await TeamModel.findById(id);
+    if (team.isRegistered === "true")
+      return res.status(400).json({ message: "Team is already registered" });
+    const updatedTeamMember = [...team.teamMembers, ...teamMembers];
     const updatedTeam = await TeamModel.findByIdAndUpdate(
       id,
       {
         teamName,
         teamLead,
-        teamMembers,
+        teamMembers: updatedTeamMember,
         score,
         mainQuest,
         sideQuest,
         route,
+        isRegistered: true,
       },
       { new: true }
     );
-
-    if (!updatedTeam) {
+    if (!updatedTeam)
       return res.status(404).json({ message: "Team not found" });
-    }
 
     res.status(200).json({
       message: "Team details updated successfully",

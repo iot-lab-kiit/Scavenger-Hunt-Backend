@@ -9,8 +9,11 @@ import methodOverride from "method-override";
 
 import auth from "./src/routes/auth.js";
 import hints from "./src/routes/hints.js";
+import quests from "./src/routes/quests.js";
 import teamRoute from "./src/routes/team.js";
+import userRoute from "./src/routes/users.js";
 import leaderboard from "./src/routes/leaderboard.js";
+import { authToken } from "./src/middlewares/auth.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -29,11 +32,11 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.set("views", path.join(__dirname, "src", "views"));
 
-import { authToken } from "./src/middlewares/auth.js";
-
 app.use("/auth", auth);
-app.use("/hints", authToken, hints);
+app.use("/quests", quests);
+app.use("/user", userRoute);
 app.use("/team", teamRoute);
+app.use("/hints", authToken, hints);
 app.use("/leaderboard", leaderboard);
 
 app.use("/", (req, res) => {

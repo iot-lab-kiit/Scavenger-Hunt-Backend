@@ -37,12 +37,19 @@
         required
       />
       <br /><br />
-      <div class="type-container">
+      <label for="capmus">Campus:</label>
+      <input
+        type="number"
+        name="campus"
+        id="campus"
+        placeholder="Enter the campus"
+      />
+      <br /><br />
+      <div>
         <label>Type:</label>
         <input type="radio" name="type" value="main" id="main" <% if
         (question.type === 'main') { %>checked<% } %> required />
         <label for="main">Main</label>
-
         <input type="radio" name="type" value="side" id="side" <% if
         (question.type === 'side') { %>checked<% } %> required />
         <label for="side">Side</label>

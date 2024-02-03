@@ -27,6 +27,7 @@
           <li>Type: <%= question.type %></li>
           <li>Question: <%= question.question %></li>
           <li>Answer: <%= question.answer %></li>
+          <li>Campus: <%= question.campus %></li>
         </ul>
         <div style="display: flex; gap: 10px">
           <form action="/hints/edit/<%= question._id %>" method="GET">
