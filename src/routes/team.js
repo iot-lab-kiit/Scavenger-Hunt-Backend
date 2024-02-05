@@ -5,13 +5,16 @@ import {
   createTeam,
   updateTeam,
   deleteTeam,
+  updatePoints,
 } from "../controllers/team.js";
+import { authToken } from "../middlewares/auth.js";
 const router = express.Router();
 
 router.post("/", createTeam);
 router.get("/", getAllTeams);
-router.put("/:id", updateTeam);
+router.put("/t/:id", updateTeam);
+router.put("/p/:id", updatePoints);
 router.get("/:id", getTeamById);
-router.delete("/:id", deleteTeam);
+router.delete("/:id", authToken, deleteTeam);
 
 export default router;

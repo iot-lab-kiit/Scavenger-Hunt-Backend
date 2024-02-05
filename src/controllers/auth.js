@@ -23,7 +23,7 @@ export const authorizeUser = async (req, res) => {
     }
 
     const newUser = new UserModel({
-      uid: user.uid,
+      _id: user.uid,
       email: user.email,
       name: user.name,
     });

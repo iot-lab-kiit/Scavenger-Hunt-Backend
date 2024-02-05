@@ -17,10 +17,12 @@ export async function getQuestions(req, res) {
 
 export async function getQuestionsbyId(req, res) {
   const { id } = req.params;
+  console.log(id);
   try {
-    const question = await Hints.findById({ id });
+    const question = await Hints.findById(id);
     if (!question) res.json({ message: "No question found" });
-    res.render("show.ejs", { question });
+    console.log(question);
+    res.send(question);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
