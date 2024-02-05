@@ -92,7 +92,7 @@ export async function updateTeam(req, res) {
     const team = await TeamModel.findById(id);
     const updatedTeamMember = [...team.teamMembers, user._id];
     if (isRegistered) {
-      if (updatedTeamMember.length >= 3 && updatedTeamMember.length < 5)
+      if (updatedTeamMember.length >= 3 && updatedTeamMember.length <= 5)
         return res.status(200).json({ message: "Team Registered" });
       else
         return res.status(401).json({
@@ -132,20 +132,22 @@ export async function updateTeam(req, res) {
 }
 
 export async function updatePoints(req, res) {
-  const { id } = req.params.id;
-  const mainQuest = [];
-  const sideQuest = [];
+  const id = req.params.id;
+  let mainQuest = [];
+  let sideQuest = [];
   try {
-    const { score, questId } = req.body;
-    const team = TeamModel.findById(id);
-    const quests = QuestsModel.findById(team.route);
-    if (quests.hint[team.numMain] === questId) {
-      mainQuest = [...team.mainQuest, questId];
+    const { score, hintId } = req.body;
+    const team = await TeamModel.findById(id);
+    const quests = await QuestsModel.findById(team.route);
+    if (quests.hints[team.numMain].toString() === hintId) {
+      mainQuest = [...team.mainQuest, hintId];
     } else {
-      const hint = HintsModel.findById(questId);
-      if (hint === null)
+      const hint = await HintsModel.findById(hintId);
+      if (hint.type === "side") {
+        sideQuest = [...team.sideQuest, hintId];
+      } else if (hint === null) {
         return res.status(404).json({ message: "Hint not found" });
-      else sideQuest = [...team.sideQuest, questId];
+      }
     }
     const updatedTeam = await TeamModel.findByIdAndUpdate(
       id,
@@ -158,9 +160,10 @@ export async function updatePoints(req, res) {
       },
       { new: true }
     );
-
     res.send(updatedTeam);
-  } catch (error) {}
+  } catch (error) {
+    res.status(404).json({ message: error });
+  }
 }
 
 export const deleteTeam = async (req, res) => {
