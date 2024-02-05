@@ -14,6 +14,7 @@ import teamRoute from "./src/routes/team.js";
 import userRoute from "./src/routes/users.js";
 import leaderboard from "./src/routes/leaderboard.js";
 import { authToken } from "./src/middlewares/auth.js";
+import credits from "./src/controllers/credits.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -33,11 +34,12 @@ app.use(express.urlencoded({ extended: true }));
 app.set("views", path.join(__dirname, "src", "views"));
 
 app.use("/auth", auth);
-app.use("/quests", quests);
+app.use("/quests", authToken, quests);
 app.use("/user", userRoute);
 app.use("/team", teamRoute);
 app.use("/hints", authToken, hints);
 app.use("/leaderboard", leaderboard);
+app.use("/credits", credits);
 
 app.use("/", (req, res) => {
   res.json({ message: "Welcome to the Scavenger Hunt API" });

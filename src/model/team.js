@@ -1,4 +1,4 @@
-import mongoose, { model, Schema } from "mongoose";
+import mongoose, { ObjectId, model, Schema } from "mongoose";
 
 const TeamSchema = new Schema({
   teamName: { type: String, required: true },
@@ -7,9 +7,13 @@ const TeamSchema = new Schema({
   score: { type: Number, default: 0 },
   numMain: { type: Number, default: 0 },
   numSide: { type: Number, default: 0 },
-  mainQuest: [{ type: mongoose.Schema.Types.ObjectId, ref: "Hints" }],
-  sideQuest: [{ type: mongoose.Schema.Types.ObjectId, ref: "Hints" }],
-  route: { type: mongoose.Schema.Types.ObjectId, ref: "Route" },
+  mainQuest: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Hints", default: null },
+  ],
+  sideQuest: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Hints", default: null },
+  ],
+  route: { type: mongoose.Schema.Types.ObjectId, ref: "Route", default: null },
   isRegistered: { type: Boolean, default: false },
 });
 

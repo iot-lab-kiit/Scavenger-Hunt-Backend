@@ -6,7 +6,7 @@ const UserSchema = new Schema({
   email: { type: String, unique: true, required: true },
   uid: { type: String, required: true },
   isLead: { type: Boolean, default: false },
-  team: { type: mongoose.Schema.Types.ObjectId, ref: "Team" },
+  team: { type: mongoose.Schema.Types.ObjectId, ref: "Team", default: null },
 });
 
 const UserModel = model("User", UserSchema);
