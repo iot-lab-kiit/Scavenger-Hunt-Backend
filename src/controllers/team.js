@@ -4,13 +4,13 @@ import HintsModel from "../model/hints.js";
 import UserModel from "../model/user.js";
 
 // get all route id from quest model and return random route id
-export const getRoute = async (req, res) => {
+const getRoute = async () => {
   try {
     const quests = await QuestsModel.find();
     const route = quests[Math.floor(Math.random() * quests.length)];
-    res.json(route);
+    return route;
   } catch (error) {
-    res.json({ message: error });
+    return { message: error };
   }
 };
 
@@ -88,11 +88,11 @@ export async function updateTeam(req, res) {
   const id = req.params.id;
   try {
     const { userid, isRegistered } = req.body;
-    const user = await UserModel.find({ uid: userid });
-    const team = await TeamModel.findById(user.id);
-    const updatedTeamMember = [...team.teamMembers, user.id];
+    const user = await UserModel.findOne({ uid: userid });
+    const team = await TeamModel.findById(id);
+    const updatedTeamMember = [...team.teamMembers, user._id];
     if (isRegistered) {
-      if (updatedTeamMember.length >= 3 && updatedTeamMember.length <= 5)
+      if (updatedTeamMember.length >= 3 && updatedTeamMember.length < 5)
         return res.status(200).json({ message: "Team Registered" });
       else
         return res.status(401).json({
@@ -110,10 +110,10 @@ export async function updateTeam(req, res) {
       },
       { new: true }
     );
-    const updateUser = await UserModel.findByIdAndUpdate(
-      user.id,
+    const updateUser = await UserModel.findOneAndUpdate(
+      { uid: userid },
       {
-        team: updatedTeam.id,
+        team: updatedTeam._id,
       },
       { new: true }
     );
