@@ -1,21 +1,22 @@
+import { createResponse } from "../../respo.js";
 import UserModel from "../model/user.js";
 
 export const getAllUsers = async (req, res) => {
   try {
     const users = await UserModel.find();
-    res.json(users);
+    res.status(200).send(createResponse(15, users));
   } catch (error) {
-    res.json({ message: error });
+    res.status(500).send(createResponse(16, err.message));
   }
 };
 
 export const getUserById = async (req, res) => {
   try {
     const id = req.params.id;
-    const user = await UserModel.findById(id);
-    res.json(user);
+    const user = await UserModel.findOne({ uid: id });
+    res.status(200).send(createResponse(1, user));
   } catch (error) {
-    res.json({ message: error });
+    res.status(500).send(createResponse(16, err.message));
   }
 };
 
@@ -23,11 +24,9 @@ export const createUser = async (req, res) => {
   try {
     const newUser = new UserModel(req.body);
     await newUser.save();
-    res
-      .status(201)
-      .json({ message: "New user created successfully", user: newUser });
+    res.status(201).send(createResponse(2, newUser));
   } catch (error) {
-    res.status(500).json({ message: error });
+    res.status(500).send(createResponse(16, err.message));
   }
 };
 
@@ -35,9 +34,8 @@ export const updateUser = async (req, res) => {
   try {
     const id = req.params.id;
     const { name, email, password, isLead, team } = req.body;
-
-    const updatedUser = await UserModel.findByIdAndUpdate(
-      id,
+    const updatedUser = await UserModel.findOneAndUpdate(
+      { uid: id },
       {
         name,
         email,
@@ -47,31 +45,22 @@ export const updateUser = async (req, res) => {
       },
       { new: true }
     );
-
-    if (!updatedUser) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.status(200).json({
-      message: "User details updated successfully",
-      user: updatedUser,
-    });
+    if (!updatedUser)
+      return res.status(404).send(createResponse(15, "User not found"));
+    res.status(200).send(createResponse(5, updatedUser));
   } catch (error) {
-    res.status(500).json({ message: error });
+    res.status(500).send(createResponse(16, err.message));
   }
 };
 
 export const deleteUser = async (req, res) => {
   try {
     const id = req.params.id;
-    const deletedUser = await UserModel.findByIdAndDelete(id);
-
-    if (!deletedUser) {
-      return res.status(404).json({ message: "Team not found" });
-    }
-
-    res.json({ message: "User deleted successfully" });
+    const deletedUser = await UserModel.findOneAndDelete({ uid: id });
+    if (!deletedUser)
+      return res.status(404).send(createResponse(15, "Team Not Found"));
+    res.status(200).send(createResponse(12, deletedUser));
   } catch (error) {
-    res.status(500).json({ message: error });
+    res.status(500).send(createResponse(16, err.message));
   }
 };

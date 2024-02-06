@@ -1,11 +1,10 @@
+import { createResponse } from "../../respo.js";
 import TeamModel from "../model/team.js";
 
 let leaderboard = "";
 async function fetchLeaderBoard() {
   console.log("updating leaderboard....");
-  const teams = await TeamModel.find().sort({
-    score: -1,
-  });
+  const teams = await TeamModel.find().sort({ score: -1 });
   leaderboard = teams.map((team) => {
     return {
       id: team.id,
@@ -20,13 +19,13 @@ setInterval(async () => {
 }, 10 * 1000); // Change this to 2 minutes
 
 export const getLeaderboard = async (req, res) => {
-  res.send(leaderboard);
+  res.status(200).send(createResponse(1, leaderboard));
 };
 
 export const getLeaderboardNum = async (req, res) => {
   const num = req.params.num;
   if (num === -1) {
     await fetchLeaderBoard();
-    return res.send(leaderboard);
-  } else res.send(leaderboard.slice(0, num));
+    return res.status(200).send(createResponse(1, leaderboard));
+  } else res.status(200).send(createResponse(1, leaderboard.slice(0, num)));
 };

@@ -8,7 +8,6 @@ import {
   newForm,
   newQuestion,
 } from "../controllers/hints.js";
-import { authToken } from "../middlewares/auth.js";
 const router = express.Router();
 
 router.get("/", getQuestions);
@@ -17,6 +16,6 @@ router.get("/new", newForm);
 router.post("/new", newQuestion);
 router.get("/edit/:id", editForm);
 router.patch("/edit/:id", editQuestion);
-router.delete("/delete/:id", authToken, deleteQuestion);
+router.delete("/delete/:id", deleteQuestion);
 
 export default router;
