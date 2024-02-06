@@ -13,7 +13,7 @@ const TeamSchema = new Schema({
   sideQuest: [
     { type: mongoose.Schema.Types.ObjectId, ref: "Hints", default: null },
   ],
-  route: { type: mongoose.Schema.Types.ObjectId, ref: "Route", default: null },
+  route: { type: mongoose.Schema.Types.ObjectId, ref: "Quests", default: null },
   isRegistered: { type: Boolean, default: false },
 });
 
