@@ -21,7 +21,6 @@ export const authorizeUser = async (req, res) => {
     await newUser.save();
     return res.status(200).send(createResponse(2, newUser));
   } catch (error) {
-    console.error(error);
-    res.status(500).send(createResponse(16, null));
+    res.status(500).send(createResponse(16, error.message));
   }
 };

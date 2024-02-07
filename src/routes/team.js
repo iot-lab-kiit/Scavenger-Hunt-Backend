@@ -11,8 +11,8 @@ const router = express.Router();
 
 router.post("/", createTeam);
 router.get("/", getAllTeams);
-router.put("/t/:id", updateTeam);
-router.put("/p/:id", updatePoints);
+router.patch("/t/:id", updateTeam);
+router.patch("/p/:id", updatePoints);
 router.get("/:id", getTeamById);
 router.delete("/:id", deleteTeam);
 

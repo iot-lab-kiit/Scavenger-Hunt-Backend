@@ -35,12 +35,12 @@ app.use(express.urlencoded({ extended: true }));
 app.set("views", path.join(__dirname, "src", "views"));
 
 app.use("/auth", auth);
+app.use("/credits", credits);
+app.use("/leaderboard", leaderboard);
+app.use("/hints", authToken, hints);
+app.use("/quests", authToken, quests);
 app.use("/user", authToken, userRoute);
 app.use("/team", authToken, teamRoute);
-app.use("/credits", credits);
-app.use("/hints", authToken, hints);
-app.use("/leaderboard", leaderboard);
-app.use("/quests", authToken, quests);
 
 app.use("/", (req, res) => {
   res.status(200).send(createResponse(6, "Welcome to the Scavenger Hunt API"));

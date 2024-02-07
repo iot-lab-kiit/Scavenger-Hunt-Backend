@@ -6,7 +6,7 @@ export const getAllQuests = async (req, res) => {
     const quests = await QuestModel.find();
     res.status(200).send(createResponse(1, quests));
   } catch (error) {
-    res.status(500).send(createResponse(16, err.message));
+    res.status(500).send(createResponse(16, error.message));
   }
 };
 
@@ -16,6 +16,6 @@ export const getQuestById = async (req, res) => {
     const quest = await QuestModel.findById(id);
     res.status(200).send(createResponse(quest));
   } catch (error) {
-    res.status(500).send(createResponse(16, err.message));
+    res.status(500).send(createResponse(16, error.message));
   }
 };
