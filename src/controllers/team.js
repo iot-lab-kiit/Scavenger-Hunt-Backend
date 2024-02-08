@@ -84,19 +84,17 @@ export async function updateTeam(req, res) {
     const { userid, isRegistered } = req.body;
     const user = await UserModel.findOne({ uid: userid });
     const team = await TeamModel.findById(id);
-    const updatedTeamMember = [...team.teamMembers, user.id];
 
     // isRegisterd : true -> check for team Lead -> check registration status -> team size -> register team else error
     // isRegisterd : false -> check for user in team -> update team members -> return updated team
-    console.log(team.teamLead.toString());
-    console.log(user.id);
-    if (isRegistered) {
+
+    if (isRegistered === "true") {
       if (team.teamLead.toString() === user.id) {
-        if (team.isRegistered)
+        if (team.isRegistered === true) {
           return res.send(createResponse(TEAM_ALREADY_REGISTERED));
-        else if (
-          updatedTeamMember.length >= 3 &&
-          updatedTeamMember.length <= 5
+        } else if (
+          team.teamMembers.length >= 3 &&
+          team.teamMembers.length <= 5
         ) {
           const updatedTeam = await TeamModel.findByIdAndUpdate(
             id,
@@ -109,10 +107,11 @@ export async function updateTeam(req, res) {
         } else return res.send(createResponse(TEAM_SIZE_NOT_MET));
       } else return res.send(createResponse(USER_NOT_AUTHORIZED));
     }
-
     if (team.teamMembers.includes(user._id))
       return res.send(createResponse(TEAM_ALREADY_EXISTS));
-
+    if (team.teamMembers.length >= 5)
+      return res.send(createResponse(TEAM_SIZE_NOT_MET));
+    const updatedTeamMember = [...team.teamMembers, user._id];
     const updatedTeam = await TeamModel.findByIdAndUpdate(
       id,
       { teamMembers: updatedTeamMember },
@@ -131,6 +130,7 @@ export async function updateTeam(req, res) {
     if (!updatedTeam) return res.send(createResponse(DATA_NOT_FOUND));
     res.send(createResponse(TEAM_UPDATED, updatedTeam));
   } catch (error) {
+    console.log(error);
     res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 }

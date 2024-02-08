@@ -1,17 +1,13 @@
 import dotenv from "dotenv";
+import { createResponse } from "../../respo.js";
 dotenv.config();
 
 export const authToken = (req, res, next) => {
   if (process.env.ACCESS_TOKEN_DISABLED === "true") next();
   else {
-    if (!req.headers.authorization)
-      return res
-        .status(401)
-        .json({ error: "Unauthorized: Access token missing" });
-    if (req.headers.authorization === process.env.ACCESS_TOKEN) next();
-    else
-      return res
-        .status(401)
-        .json({ error: "Unauthorized: Invalid access token" });
+    if (!req.headers.authorization) return res.send(createResponse(19));
+    if (req.headers.authorization.split(" ")[1] === process.env.ACCESS_TOKEN)
+      next();
+    else return res.send(createResponse(20));
   }
 };

@@ -7,6 +7,7 @@ import {
   USER_CREATED,
   USER_UPDATED,
 } from "../constants/index.js";
+import TeamModel from "../model/team.js";
 import UserModel from "../model/user.js";
 
 export const getAllUsers = async (req, res) => {
@@ -33,9 +34,16 @@ export const getUserById = async (req, res) => {
 export const getUserTeamById = async (req, res) => {
   try {
     const id = req.params.id;
+
     const user = await UserModel.findOne({ uid: id }).populate("team");
+    const team = await TeamModel.findOne({ _id: user.team })
+      .populate("teamLead")
+      .populate("teamMembers")
+      .populate("mainQuest")
+      .populate("sideQuest")
+      .select("-route");
     if (!user) return res.send(createResponse(DATA_NOT_FOUND));
-    res.send(createResponse(STATUS_OK, user));
+    res.send(createResponse(STATUS_OK, team));
   } catch (error) {
     console.log(error);
     res.send(createResponse(INTERNAL_SERVER_ERROR));

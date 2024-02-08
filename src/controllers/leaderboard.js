@@ -4,16 +4,11 @@ import TeamModel from "../model/team.js";
 
 let leaderboard = "";
 async function fetchLeaderBoard() {
-  console.log("updating leaderboard....");
-  const teams = await TeamModel.find().sort({ score: -1 });
-  leaderboard = teams.map((team) => {
-    return {
-      id: team.id,
-      name: team.teamName,
-      leader: team.teamLead,
-      score: team.score,
-    };
-  });
+  // console.log("updating leaderboard....");
+  const team = await TeamModel.find()
+    .sort({ score: -1 })
+    .select("teamName score");
+  leaderboard = team;
 }
 setInterval(async () => {
   await fetchLeaderBoard();

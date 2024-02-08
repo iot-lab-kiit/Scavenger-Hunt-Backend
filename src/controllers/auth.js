@@ -1,5 +1,6 @@
 import { createResponse } from "../../respo.js";
 import {
+  INTERNAL_SERVER_ERROR,
   STATUS_OK,
   USER_CREATED,
   USER_NOT_AUTHORIZED,
@@ -20,7 +21,7 @@ export const authorizeUser = async (req, res) => {
     if (userRecord)
       return res.status(200).send(createResponse(STATUS_OK, userRecord));
     const newUser = new UserModel({
-      _id: user.uid,
+      uid: user.uid,
       email: user.email,
       name: user.name,
     });

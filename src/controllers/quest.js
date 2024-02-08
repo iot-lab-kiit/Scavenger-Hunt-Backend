@@ -22,3 +22,14 @@ export const getQuestById = async (req, res) => {
     res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 };
+
+export const createQuest = (req, res) => {
+  try {
+    const quest = new QuestModel(req.body);
+    quest.save();
+    res.send(createResponse(STATUS_OK, quest));
+  } catch (error) {
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
+  }
+};
