@@ -14,5 +14,3 @@ export default function credits(req, res) {
     })
   );
 }
-
-// 1 : OK
