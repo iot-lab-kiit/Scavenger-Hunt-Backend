@@ -3,6 +3,19 @@ import QuestsModel from "../model/quests.js";
 import HintsModel from "../model/hints.js";
 import UserModel from "../model/user.js";
 import { createResponse } from "../../respo.js";
+import {
+  DATA_DELETED,
+  DATA_NOT_FOUND,
+  INTERNAL_SERVER_ERROR,
+  STATUS_OK,
+  TEAM_ALREADY_EXISTS,
+  TEAM_ALREADY_REGISTERED,
+  TEAM_CREATED,
+  TEAM_SIZE_NOT_MET,
+  TEAM_UPDATED,
+  USER_ALREADY_LEAD,
+  USER_NOT_AUTHORIZED,
+} from "../constants/index.js";
 
 const getRoute = async () => {
   try {
@@ -10,6 +23,7 @@ const getRoute = async () => {
     const route = quests[Math.floor(Math.random() * quests.length)];
     return route._id;
   } catch (error) {
+    console.log(error);
     return error;
   }
 };
@@ -17,9 +31,10 @@ const getRoute = async () => {
 export const getAllTeams = async (req, res) => {
   try {
     const teams = await TeamModel.find();
-    res.status(200).send(createResponse(1, teams));
+    res.send(createResponse(STATUS_OK, teams));
   } catch (error) {
-    res.status(500).send(createResponse(16, error.message));
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 };
 
@@ -29,9 +44,10 @@ export const getTeamById = async (req, res) => {
     const team = await TeamModel.findById(id)
       .populate("teamLead")
       .populate("teamMembers");
-    res.status(200).send(createResponse(1, team));
+    res.send(createResponse(STATUS_OK, team));
   } catch (error) {
-    res.status(500).send(createResponse(16, error.message));
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 };
 
@@ -39,21 +55,12 @@ export const createTeam = async (req, res) => {
   try {
     const newTeam = new TeamModel(req.body);
     const user = await UserModel.findById(newTeam.teamLead).exec();
-
-    if (!user)
-      return res.status(404).send(createResponse(10, "User not found"));
-
-    if (user.isLead)
-      return res
-        .status(403)
-        .send(createResponse(10, "User already lead of a team"));
-
-    if (user.team)
-      return res.status(403).send(createResponse(10, "User already in a team"));
-
+    if (!user) return res.send(createResponse(DATA_NOT_FOUND));
+    if (user.isLead) return res.send(createResponse(USER_ALREADY_LEAD));
+    if (user.team) return res.send(createResponse(TEAM_ALREADY_EXISTS));
     await newTeam.save();
 
-    const updateUser = await UserModel.findByIdAndUpdate(
+    await UserModel.findByIdAndUpdate(
       user._id,
       { team: newTeam._id, isLead: true },
       { new: true }
@@ -64,9 +71,10 @@ export const createTeam = async (req, res) => {
       .populate("teamMembers")
       .exec();
 
-    res.status(200).send(createResponse(7, populatedTeam));
+    res.send(createResponse(TEAM_CREATED, populatedTeam));
   } catch (error) {
-    res.status(500).send(createResponse(16, error.message));
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 };
 
@@ -76,34 +84,34 @@ export async function updateTeam(req, res) {
     const { userid, isRegistered } = req.body;
     const user = await UserModel.findOne({ uid: userid });
     const team = await TeamModel.findById(id);
-    console.log(team);
-    const updatedTeamMember = [...team.teamMembers, user._id];
-    if (team.teamMembers.includes(user._id)) {
-      return res
-        .status(403)
-        .send(createResponse(12, "User already in the team"));
+    const updatedTeamMember = [...team.teamMembers, user.id];
+
+    // isRegisterd : true -> check for team Lead -> check registration status -> team size -> register team else error
+    // isRegisterd : false -> check for user in team -> update team members -> return updated team
+    console.log(team.teamLead.toString());
+    console.log(user.id);
+    if (isRegistered) {
+      if (team.teamLead.toString() === user.id) {
+        if (team.isRegistered)
+          return res.send(createResponse(TEAM_ALREADY_REGISTERED));
+        else if (
+          updatedTeamMember.length >= 3 &&
+          updatedTeamMember.length <= 5
+        ) {
+          const updatedTeam = await TeamModel.findByIdAndUpdate(
+            id,
+            { isRegistered, route: null },
+            { new: true }
+          )
+            .populate("teamLead")
+            .populate("teamMembers");
+          return res.send(createResponse(TEAM_UPDATED, updatedTeam));
+        } else return res.send(createResponse(TEAM_SIZE_NOT_MET));
+      } else return res.send(createResponse(USER_NOT_AUTHORIZED));
     }
-    if (isRegistered && team.teamLead._id === user._id) {
-      if (team.isRegistered)
-        return res
-          .status(403)
-          .send(createResponse(10, "Team already registered"));
-      else if (updatedTeamMember.length >= 3 && updatedTeamMember.length <= 5) {
-        const updatedTeam = await TeamModel.findByIdAndUpdate(
-          id,
-          { isRegistered, route: await getRoute() },
-          { new: true }
-        )
-          .populate("teamLead")
-          .populate("teamMembers");
-        return res.status(200).send(createResponse(8, updatedTeam));
-      } else
-        return res
-          .status(403)
-          .send(
-            createResponse(11, "Team size not met. Go get yourself a friend")
-          );
-    }
+
+    if (team.teamMembers.includes(user._id))
+      return res.send(createResponse(TEAM_ALREADY_EXISTS));
 
     const updatedTeam = await TeamModel.findByIdAndUpdate(
       id,
@@ -118,13 +126,12 @@ export async function updateTeam(req, res) {
       { team: updatedTeam._id },
       { new: true }
     );
-    if (!updateUser)
-      return res.status(404).send(createResponse(15, "User not found"));
-    if (!updatedTeam)
-      return res.status(404).send(createResponse(15, "Team not found"));
-    res.status(200).send(createResponse(8, updatedTeam));
+
+    if (!updateUser) return res.send(createResponse(DATA_NOT_FOUND));
+    if (!updatedTeam) return res.send(createResponse(DATA_NOT_FOUND));
+    res.send(createResponse(TEAM_UPDATED, updatedTeam));
   } catch (error) {
-    res.status(500).send(createResponse(16, error.message));
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 }
 
@@ -149,8 +156,7 @@ export async function updatePoints(req, res) {
       mainQuest = [...mainQuest, hintId];
     else {
       const hint = await HintsModel.findOne({ _id: hintId, type: "side" });
-      if (!hint)
-        return res.status(404).send(createResponse(15, "Hint not found"));
+      if (!hint) return res.send(createResponse(DATA_NOT_FOUND));
     }
     const updatedTeam = await TeamModel.findByIdAndUpdate(
       id,
@@ -166,9 +172,9 @@ export async function updatePoints(req, res) {
       .populate("teamLead")
       .populate("teamMembers")
       .exec();
-    res.status(200).send(createResponse(8, updatedTeam));
+    res.send(createResponse(TEAM_UPDATED, updatedTeam));
   } catch (error) {
-    res.status(500).send(createResponse(16, error.message));
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 }
 
@@ -181,10 +187,10 @@ export const deleteTeam = async (req, res) => {
       .exec();
 
     if (!deletedTeam) {
-      return res.status(404).send(createResponse(15, "Team not found"));
+      return res.send(createResponse(DATA_NOT_FOUND));
     }
-    res.status(200).send(createResponse(12, deletedTeam));
+    res.send(createResponse(DATA_DELETED, deletedTeam));
   } catch (error) {
-    res.status(500).send(createResponse(16, error.message));
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 };

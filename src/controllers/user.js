@@ -1,22 +1,32 @@
 import { createResponse } from "../../respo.js";
+import {
+  DATA_DELETED,
+  DATA_NOT_FOUND,
+  INTERNAL_SERVER_ERROR,
+  STATUS_OK,
+  USER_CREATED,
+  USER_UPDATED,
+} from "../constants/index.js";
 import UserModel from "../model/user.js";
 
 export const getAllUsers = async (req, res) => {
   try {
     const users = await UserModel.find();
-    res.status(200).send(createResponse(15, users));
+    res.send(createResponse(STATUS_OK, users));
   } catch (error) {
-    res.status(500).send(createResponse(16, error));
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 };
 
 export const getUserById = async (req, res) => {
   try {
     const id = req.params.id;
-    const user = await UserModel.findOne({ uid: id }).populate("team");
-    res.status(200).send(createResponse(1, user));
+    const user = await UserModel.findOne({ uid: id });
+    res.send(createResponse(STATUS_OK, user));
   } catch (error) {
-    res.status(500).send(createResponse(16, error));
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 };
 
@@ -24,11 +34,11 @@ export const getUserTeamById = async (req, res) => {
   try {
     const id = req.params.id;
     const user = await UserModel.findOne({ uid: id }).populate("team");
-    if (!user)
-      return res.status(404).send(createResponse(15, "User not found"));
-    res.status(200).send(createResponse(1, user.team));
+    if (!user) return res.send(createResponse(DATA_NOT_FOUND));
+    res.send(createResponse(STATUS_OK, user));
   } catch (error) {
-    res.status(500).send(createResponse(16, error));
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 };
 
@@ -36,10 +46,11 @@ export const createUser = async (req, res) => {
   try {
     const newUser = new UserModel(req.body);
     await newUser.save();
-    await newUser.populate("team");
-    res.status(201).send(createResponse(2, newUser));
+    // await newUser;
+    res.send(createResponse(USER_CREATED, newUser));
   } catch (error) {
-    res.status(500).send(createResponse(16, error));
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 };
 
@@ -57,12 +68,12 @@ export const updateUser = async (req, res) => {
         team,
       },
       { new: true }
-    ).populate("team");
-    if (!updatedUser)
-      return res.status(404).send(createResponse(15, "User not found"));
-    res.status(200).send(createResponse(5, updatedUser));
+    );
+    if (!updatedUser) return res.send(createResponse(DATA_NOT_FOUND));
+    res.send(createResponse(USER_UPDATED, updatedUser));
   } catch (error) {
-    res.status(500).send(createResponse(16, error));
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 };
 
@@ -72,10 +83,10 @@ export const deleteUser = async (req, res) => {
     const deletedUser = await UserModel.findOneAndDelete({ uid: id }).populate(
       "team"
     );
-    if (!deletedUser)
-      return res.status(404).send(createResponse(15, "User Not Found"));
-    res.status(200).send(createResponse(12, deletedUser));
+    if (!deletedUser) return res.send(createResponse(DATA_NOT_FOUND));
+    res.send(createResponse(DATA_DELETED, deletedUser));
   } catch (error) {
-    res.status(500).send(createResponse(16, error));
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 };

@@ -1,12 +1,14 @@
 import { createResponse } from "../../respo.js";
+import { INTERNAL_SERVER_ERROR, STATUS_OK } from "../constants/index.js";
 import QuestModel from "../model/quests.js";
 
 export const getAllQuests = async (req, res) => {
   try {
     const quests = await QuestModel.find();
-    res.status(200).send(createResponse(1, quests));
+    res.send(createResponse(STATUS_OK, quests));
   } catch (error) {
-    res.status(500).send(createResponse(16, error.message));
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 };
 
@@ -14,8 +16,9 @@ export const getQuestById = async (req, res) => {
   try {
     const id = req.params.id;
     const quest = await QuestModel.findById(id);
-    res.status(200).send(createResponse(quest));
+    res.send(createResponse(STATUS_OK, quest));
   } catch (error) {
-    res.status(500).send(createResponse(16, error.message));
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 };

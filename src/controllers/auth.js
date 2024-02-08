@@ -1,26 +1,33 @@
 import { createResponse } from "../../respo.js";
+import {
+  STATUS_OK,
+  USER_CREATED,
+  USER_NOT_AUTHORIZED,
+} from "../constants/index.js";
 import { firebaseAuth } from "../lib/firebase-admin.js";
 import UserModel from "../model/user.js";
 
 export const authorizeUser = async (req, res) => {
   try {
     const token = req.body.token;
-    if (!token) return res.status(401).send(createResponse(4, null));
+    if (!token) return res.send(createResponse(USER_NOT_AUTHORIZED));
     const user = await firebaseAuth.verifyIdToken(token);
     const userRecord = await UserModel.findOneAndUpdate(
       { uid: user.uid },
       { name: user.name },
       { new: true }
     );
-    if (userRecord) return res.status(200).send(createResponse(1, userRecord));
+    if (userRecord)
+      return res.status(200).send(createResponse(STATUS_OK, userRecord));
     const newUser = new UserModel({
       _id: user.uid,
       email: user.email,
       name: user.name,
     });
     await newUser.save();
-    return res.status(200).send(createResponse(2, newUser));
+    return res.send(createResponse(USER_CREATED, newUser));
   } catch (error) {
-    res.status(500).send(createResponse(16, error.message));
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
   }
 };

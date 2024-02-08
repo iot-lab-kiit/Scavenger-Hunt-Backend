@@ -1,8 +1,9 @@
 import { createResponse } from "../../respo.js";
+import { STATUS_OK } from "../constants/index.js";
 
 export default function credits(req, res) {
   res.send(
-    createResponse(1, {
+    createResponse(STATUS_OK, {
       title: "Credits",
       backend: { dev1: "Priyanshu", dev2: "Akangkha", dev3: "Shashank" },
       app: {

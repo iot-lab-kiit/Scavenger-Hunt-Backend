@@ -1,6 +1,7 @@
 import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import helmet from "helmet";
 import express from "express";
 import mongoose from "mongoose";
 import { fileURLToPath } from "url";
@@ -16,6 +17,7 @@ import credits from "./src/controllers/credits.js";
 import leaderboard from "./src/routes/leaderboard.js";
 import { authToken } from "./src/middlewares/auth.js";
 import { createResponse } from "./respo.js";
+import { getIP } from "./src/middlewares/getIP.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -29,6 +31,7 @@ const mongo_uri =
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(helmet());
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
@@ -42,7 +45,7 @@ app.use("/quests", authToken, quests);
 app.use("/user", authToken, userRoute);
 app.use("/team", authToken, teamRoute);
 
-app.use("/", (req, res) => {
+app.use("/", getIP, (req, res) => {
   res.status(200).send(createResponse(6, "Welcome to the Scavenger Hunt API"));
 });
 

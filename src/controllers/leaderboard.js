@@ -1,4 +1,5 @@
 import { createResponse } from "../../respo.js";
+import { STATUS_OK } from "../constants/index.js";
 import TeamModel from "../model/team.js";
 
 let leaderboard = "";
@@ -19,13 +20,13 @@ setInterval(async () => {
 }, 10 * 1000); // Change this to 2 minutes
 
 export const getLeaderboard = async (req, res) => {
-  res.status(200).send(createResponse(1, leaderboard));
+  res.send(createResponse(STATUS_OK, leaderboard));
 };
 
 export const getLeaderboardNum = async (req, res) => {
   const num = req.params.num;
   if (num === -1) {
     await fetchLeaderBoard();
-    return res.status(200).send(createResponse(1, leaderboard));
-  } else res.status(200).send(createResponse(1, leaderboard.slice(0, num)));
+    return res.send(createResponse(STATUS_OK, leaderboard));
+  } else res.send(createResponse(STATUS_OK, leaderboard.slice(0, num)));
 };

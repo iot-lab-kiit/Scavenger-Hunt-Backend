@@ -1,5 +1,5 @@
 export const createResponse = (status, message) => {
-  return { state: status, data: message };
+  return { state: status, data: typeof message === undefined ? null : message };
 };
 
 /*
