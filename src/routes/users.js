@@ -2,17 +2,18 @@ import express from "express";
 import {
   getAllUsers,
   getUserById,
+  getUserTeamById,
   createUser,
   updateUser,
   deleteUser,
 } from "../controllers/user.js";
-import { authToken } from "../middlewares/auth.js";
 const router = express.Router();
 
 router.get("/", getAllUsers);
-router.get("/:id", getUserById);
+router.get("/u/:id", getUserById);
+router.get("/t/:id", getUserTeamById);
 router.post("/", createUser);
 router.put("/:id", updateUser);
-router.delete("/:id", authToken, deleteUser);
+router.delete("/:id", deleteUser);
 
 export default router;

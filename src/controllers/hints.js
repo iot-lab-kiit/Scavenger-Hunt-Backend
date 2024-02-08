@@ -1,3 +1,4 @@
+import { createResponse } from "../../respo.js";
 import Hints from "../model/hints.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -5,13 +6,14 @@ dotenv.config();
 export async function getQuestions(req, res) {
   try {
     const allQuestions = await Hints.find({});
-    if (!allQuestions) res.json({ message: "No questions found" });
+    if (!allQuestions)
+      return res.status(404).send(createResponse(15, "No questions found"));
 
     if (process.env.ENABLE_PAGE_RENDER === "true")
       res.render("show.ejs", { allQuestions });
-    else res.json(allQuestions);
+    else return res.status(200).send(createResponse(1, allQuestions));
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).send(createResponse(err.message));
   }
 }
 
@@ -20,11 +22,12 @@ export async function getQuestionsbyId(req, res) {
   console.log(id);
   try {
     const question = await Hints.findById(id);
-    if (!question) res.json({ message: "No question found" });
+    if (!question)
+      return res.status(404).send(createResponse(15, "No question found"));
     console.log(question);
-    res.send(question);
+    return res.send(200).send(createResponse(1, question));
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).send(createResponse(16, err.message));
   }
 }
 
@@ -40,7 +43,7 @@ export async function newQuestion(req, res) {
     console.log("Question saved!");
     res.redirect("/hints");
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).send(createResponse(16, err.message));
   }
 }
 
@@ -50,7 +53,7 @@ export async function editForm(req, res) {
     console.log(question);
     res.render("edit.ejs", { question });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).send(createResponse(16, err.message));
   }
 }
 
@@ -62,9 +65,9 @@ export async function editQuestion(req, res) {
     );
     console.log(updatedQuestion);
     console.log("Question updated successfully");
-    res.redirect("/hints");
+    return res.redirect("/hints");
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).send(createResponse(16, err.message));
   }
 }
 
@@ -75,6 +78,6 @@ export async function deleteQuestion(req, res) {
     console.log("Question Deleted Successfully");
     res.redirect("/hints");
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).send(createResponse(16, err.message));
   }
 }
