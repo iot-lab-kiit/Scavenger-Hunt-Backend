@@ -18,3 +18,4 @@ export const USER_ALREADY_LEAD = 17;
 export const TEAM_ALREADY_REGISTERED = 18;
 export const TOKEN_MISSING = 19;
 export const TOKEN_INVALID = 20;
+export const DATA_INITIALISED = 21;

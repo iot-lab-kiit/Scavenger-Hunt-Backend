@@ -28,7 +28,7 @@ export async function getQuestionsbyId(req, res) {
   try {
     const question = await Hints.findById(id);
     if (!question) return res.send(createResponse(DATA_NOT_FOUND));
-    return res.send(200).send(createResponse(STATUS_OK, question));
+    return res.send(createResponse(STATUS_OK, question));
   } catch (error) {
     console.log(error);
     res.send(createResponse(INTERNAL_SERVER_ERROR));

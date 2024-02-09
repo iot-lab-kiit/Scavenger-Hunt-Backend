@@ -1,10 +1,13 @@
 import { createResponse } from "../../respo.js";
 import { STATUS_OK } from "../constants/index.js";
 import TeamModel from "../model/team.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 let leaderboard = "";
 async function fetchLeaderBoard() {
-  // console.log("updating leaderboard....");
+  if (process.env.SHOW_UPDATE === "true")
+    console.log("Fetching Leaderboard....");
   const team = await TeamModel.find()
     .sort({ score: -1 })
     .select("teamName score");
