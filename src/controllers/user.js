@@ -13,6 +13,8 @@ import UserModel from "../model/user.js";
 export const getAllUsers = async (req, res) => {
   try {
     const users = await UserModel.find();
+    console.log(users);
+    if (!users) return res.send(createResponse(DATA_NOT_FOUND));
     res.send(createResponse(STATUS_OK, users));
   } catch (error) {
     console.log(error);
@@ -24,6 +26,7 @@ export const getUserById = async (req, res) => {
   try {
     const id = req.params.id;
     const user = await UserModel.findOne({ uid: id });
+    if (!user) return res.send(createResponse(DATA_NOT_FOUND));
     res.send(createResponse(STATUS_OK, user));
   } catch (error) {
     console.log(error);
@@ -34,15 +37,18 @@ export const getUserById = async (req, res) => {
 export const getUserTeamById = async (req, res) => {
   try {
     const id = req.params.id;
-
     const user = await UserModel.findOne({ uid: id }).populate("team");
+    // console.log(user.team);
     const team = await TeamModel.findOne({ _id: user.team })
       .populate("teamLead")
       .populate("teamMembers")
       .populate("mainQuest")
       .populate("sideQuest")
       .select("-route");
+    // console.log(team);
     if (!user) return res.send(createResponse(DATA_NOT_FOUND));
+    if (!team) return res.send(createResponse(DATA_NOT_FOUND));
+
     res.send(createResponse(STATUS_OK, team));
   } catch (error) {
     console.log(error);
@@ -55,6 +61,7 @@ export const createUser = async (req, res) => {
     const newUser = new UserModel(req.body);
     await newUser.save();
     // await newUser;
+    if (!newUser) return res.send(createResponse(DATA_NOT_FOUND));
     res.send(createResponse(USER_CREATED, newUser));
   } catch (error) {
     console.log(error);

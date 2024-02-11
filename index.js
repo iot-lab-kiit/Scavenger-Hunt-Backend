@@ -11,13 +11,13 @@ import methodOverride from "method-override";
 import auth from "./src/routes/auth.js";
 import hints from "./src/routes/hints.js";
 import quests from "./src/routes/quests.js";
+import { createResponse } from "./respo.js";
+import initRoute from "./src/routes/init.js";
 import teamRoute from "./src/routes/team.js";
 import userRoute from "./src/routes/users.js";
 import credits from "./src/controllers/credits.js";
 import leaderboard from "./src/routes/leaderboard.js";
 import { authToken } from "./src/middlewares/auth.js";
-import { createResponse } from "./respo.js";
-import initRoute from "./src/routes/init.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -39,7 +39,7 @@ app.set("views", path.join(__dirname, "src", "views"));
 
 app.use("/auth", auth);
 app.use("/credits", credits);
-app.use("/hints", authToken, hints);
+app.use("/hints", hints);
 app.use("/leaderboard", leaderboard);
 app.use("/quests", authToken, quests);
 app.use("/user", authToken, userRoute);

@@ -37,12 +37,22 @@
         required
       />
       <br /><br />
-      <label for="capmus">Campus:</label>
+      <label for="campus">Campus:</label>
       <input
         type="number"
         name="campus"
         id="campus"
+        value="<%= question.campus %>"
         placeholder="Enter the campus"
+      />
+      <br /><br />
+      <label for="theme">Theme:</label>
+      <input
+        type="text"
+        name="theme"
+        id="theme"
+        value="<%= question.theme %>"
+        placeholder="Enter the theme"
       />
       <br /><br />
       <div>

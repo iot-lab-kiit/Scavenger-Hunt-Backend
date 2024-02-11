@@ -9,8 +9,7 @@ dotenv.config();
 export const initUser = async (req, res) => {
   try {
     await UserModel.deleteMany();
-    if (process.env.INITIALIZER === "true")
-      await UserModel.insertMany(userData);
+    await UserModel.insertMany(userData);
     return res.send(createResponse(21));
   } catch (error) {
     console.log(error);
@@ -21,8 +20,7 @@ export const initUser = async (req, res) => {
 export const initHints = async (req, res) => {
   try {
     await HintsModel.deleteMany();
-    if (process.env.INITIALIZER === "true")
-      await HintsModel.insertMany(hintsData);
+    await HintsModel.insertMany(hintsData);
     return res.send(createResponse(21));
   } catch (error) {
     console.log(error);

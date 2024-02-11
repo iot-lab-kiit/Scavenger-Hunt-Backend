@@ -1,5 +1,5 @@
 import { createResponse } from "../../respo.js";
-import { STATUS_OK } from "../constants/index.js";
+import { INTERNAL_SERVER_ERROR, STATUS_OK } from "../constants/index.js";
 import TeamModel from "../model/team.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -18,13 +18,24 @@ setInterval(async () => {
 }, 10 * 1000); // Change this to 2 minutes
 
 export const getLeaderboard = async (req, res) => {
-  res.send(createResponse(STATUS_OK, leaderboard));
+  try {
+    if (!leaderboard) await fetchLeaderBoard();
+    res.send(createResponse(STATUS_OK, leaderboard));
+  } catch (error) {
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
+  }
 };
 
 export const getLeaderboardNum = async (req, res) => {
-  const num = req.params.num;
-  if (num === -1) {
-    await fetchLeaderBoard();
-    return res.send(createResponse(STATUS_OK, leaderboard));
-  } else res.send(createResponse(STATUS_OK, leaderboard.slice(0, num)));
+  try {
+    const num = req.params.num;
+    if (num === -1) {
+      await fetchLeaderBoard();
+      return res.send(createResponse(STATUS_OK, leaderboard));
+    } else res.send(createResponse(STATUS_OK, leaderboard.slice(0, num)));
+  } catch (error) {
+    console.log(error);
+    res.send(createResponse(INTERNAL_SERVER_ERROR));
+  }
 };

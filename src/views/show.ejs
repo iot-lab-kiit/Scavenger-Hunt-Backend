@@ -28,6 +28,7 @@
           <li>Question: <%= question.question %></li>
           <li>Answer: <%= question.answer %></li>
           <li>Campus: <%= question.campus %></li>
+          <li>Theme: <%= question.theme %></li>
         </ul>
         <div style="display: flex; gap: 10px">
           <form action="/hints/edit/<%= question._id %>" method="GET">

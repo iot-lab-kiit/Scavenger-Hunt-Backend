@@ -5,6 +5,7 @@ import QuestModel from "../model/quests.js";
 export const getAllQuests = async (req, res) => {
   try {
     const quests = await QuestModel.find();
+    if (!quests) return res.send(createResponse(DATA_NOT_FOUND));
     res.send(createResponse(STATUS_OK, quests));
   } catch (error) {
     console.log(error);
@@ -16,6 +17,7 @@ export const getQuestById = async (req, res) => {
   try {
     const id = req.params.id;
     const quest = await QuestModel.findById(id);
+    if (!quest) return res.send(createResponse(DATA_NOT_FOUND));
     res.send(createResponse(STATUS_OK, quest));
   } catch (error) {
     console.log(error);
@@ -23,10 +25,11 @@ export const getQuestById = async (req, res) => {
   }
 };
 
-export const createQuest = (req, res) => {
+export const createQuest = async (req, res) => {
   try {
     const quest = new QuestModel(req.body);
-    quest.save();
+    await quest.save();
+    if (!quest) return res.send(createResponse(DATA_NOT_FOUND));
     res.send(createResponse(STATUS_OK, quest));
   } catch (error) {
     console.log(error);

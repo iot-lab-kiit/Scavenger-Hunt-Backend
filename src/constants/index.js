@@ -19,3 +19,5 @@ export const TEAM_ALREADY_REGISTERED = 18;
 export const TOKEN_MISSING = 19;
 export const TOKEN_INVALID = 20;
 export const DATA_INITIALISED = 21;
+export const INVALID_QUEST = 22;
+export const QUEST_ALREADY_EXISTS = 23;

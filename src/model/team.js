@@ -4,6 +4,8 @@ const TeamSchema = new Schema({
   teamName: { type: String, required: true },
   teamLead: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   teamMembers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  totalMain: { type: Number, default: 10 },
+  totalSide: { type: Number, default: 10 },
   score: { type: Number, default: 0 },
   numMain: { type: Number, default: 0 },
   numSide: { type: Number, default: 0 },

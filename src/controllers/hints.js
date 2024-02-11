@@ -13,7 +13,6 @@ export async function getQuestions(req, res) {
   try {
     const allQuestions = await Hints.find({});
     if (!allQuestions) return res.send(createResponse(DATA_NOT_FOUND));
-
     if (process.env.ENABLE_PAGE_RENDER === "true")
       res.render("show.ejs", { allQuestions });
     else return res.send(createResponse(STATUS_OK, allQuestions));
@@ -79,6 +78,7 @@ export async function editQuestion(req, res) {
 export async function deleteQuestion(req, res) {
   try {
     const deletedQuestion = await Hints.findByIdAndDelete(req.params.id);
+    if (!deletedQuestion) return res.send(createResponse(DATA_NOT_FOUND));
     if (process.env.ENABLE_PAGE_RENDER === "true")
       return res.redirect("/hints");
     else return res.send(createResponse(DATA_DELETED, deletedQuestion));

@@ -1,0 +1,98 @@
+export const creditsData = [
+  {
+    name: "Vaibhav Tiwari",
+    instragram: "",
+    linkedIn: "",
+    designation: "Organiser",
+  },
+  {
+    name: "Anshul Kumar",
+    instragram: "",
+    linkedIn: "",
+    designation: "Organiser",
+  },
+  {
+    name: "Bora Dhruv Singh",
+    instragram: "",
+    linkedIn: "",
+    designation: "Organiser",
+  },
+  {
+    name: "Vaibhav Gupta",
+    instragram: "",
+    linkedIn: "",
+    designation: "Organiser",
+  },
+  {
+    name: "Avishikta Majumder",
+    instragram: "",
+    linkedIn: "",
+    designation: "Organiser",
+  },
+  {
+    name: "Pratibh Sinha",
+    instragram: "",
+    linkedIn: "",
+    designation: "Organiser",
+  },
+  {
+    name: "Ankit Sahoo",
+    instragram: "",
+    linkedIn: "",
+    designation: "Organiser",
+  },
+  {
+    name: "Anirban Basak",
+    instragram: "",
+    linkedIn: "",
+    designation: "Organiser",
+  },
+  {
+    name: "Kumar Priyanshu",
+    github: "https://github.com/kpriyanshu2003",
+    linkedin: "https://www.linkedin.com/in/kpriyanshu2003/",
+    designation: "Backend Developer",
+  },
+  {
+    name: "Akangkha Sarkar",
+    github: "",
+    linkedin: "",
+    designation: "Backend Developer",
+  },
+  {
+    name: "Shashank Raj",
+    github: "",
+    linkedin: "",
+    designation: "Backend Developer",
+  },
+  {
+    name: "Abhranil Dasgupta",
+    github: "",
+    linkedin: "",
+    designation: "App Developer",
+  },
+  {
+    name: "Anirban Basak",
+    github: "https://github.com/basakjeet08",
+    linkedin: "https://www.linkedin.com/in/anirban-basak-b96055249/",
+    designation: "App Developer",
+  },
+  {
+    name: "Vaibhav Raj",
+    github: "",
+    linkedin: "",
+    designation: "App Developer",
+  },
+  {
+    name: "Anirudh Sharma",
+    github: "https://github.com/Minecraftian14",
+    linkedin: "https://www.linkedin.com/in/Minecraftian14",
+    designation: "App Developer",
+  },
+  {
+    name: "Bibek Das",
+    github: "",
+    linkedin: "",
+    designation: "UI Designer",
+  },
+];

@@ -6,6 +6,7 @@ const HintsSchema = new Schema({
   type: { type: String, required: true, enum: ["main", "side"] },
   answer: { type: String, required: true },
   campus: { type: Number, required: true },
+  theme: { type: String, required: true },
 });
 
 const HintsModel = model("Hints", HintsSchema);
