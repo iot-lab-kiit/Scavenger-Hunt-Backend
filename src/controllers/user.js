@@ -45,7 +45,6 @@ export const getUserTeamById = async (req, res) => {
       .populate("mainQuest")
       .populate("sideQuest")
       .select("-route");
-    // console.log(team);
     if (!user) return res.send(createResponse(DATA_NOT_FOUND));
     if (!team) return res.send(createResponse(DATA_NOT_FOUND));
 

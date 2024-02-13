@@ -7,6 +7,7 @@ const HintsSchema = new Schema({
   answer: { type: String, required: true },
   campus: { type: Number, required: true },
   theme: { type: String, required: true },
+  imageURL: { type: String, default: null },
 });
 
 const HintsModel = model("Hints", HintsSchema);

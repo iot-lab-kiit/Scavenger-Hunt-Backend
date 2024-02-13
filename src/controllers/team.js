@@ -19,10 +19,13 @@ import {
   USER_NOT_AUTHORIZED,
 } from "../constants/index.js";
 
+let routeCount = 0;
+
 const getRoute = async () => {
   try {
     const quests = await QuestsModel.find();
-    const route = quests[Math.floor(Math.random() * quests.length)];
+    const route = quests[routeCount++ % quests.length];
+    if (routeCount === quests.length) routeCount = 0;
     return route._id;
   } catch (error) {
     console.log(error);
@@ -100,9 +103,20 @@ export async function updateTeam(req, res) {
           team.teamMembers.length >= 3 &&
           team.teamMembers.length <= 5
         ) {
+          const route = await getRoute();
+          const updatedRoute = await QuestsModel.findById(route).exec();
+          const countSide = await HintsModel.countDocuments({ type: "side" });
+
           const updatedTeam = await TeamModel.findByIdAndUpdate(
             id,
-            { isRegistered, route: await getRoute() },
+            {
+              isRegistered,
+              route: updatedRoute._id,
+              totalMain: updatedRoute.hints.length,
+              totalSide: countSide,
+              theme: updatedRoute.theme,
+              doc: updatedRoute.doc,
+            },
             { new: true }
           )
             .populate("teamLead")
@@ -111,6 +125,8 @@ export async function updateTeam(req, res) {
         } else return res.send(createResponse(TEAM_SIZE_NOT_MET));
       } else return res.send(createResponse(USER_NOT_AUTHORIZED));
     }
+    if (team.isRegistered)
+      return res.send(createResponse(TEAM_ALREADY_REGISTERED));
     if (team.teamMembers.includes(user._id))
       return res.send(createResponse(TEAM_ALREADY_EXISTS));
     if (team.teamMembers.length >= 5)
@@ -147,47 +163,34 @@ export async function updatePoints(req, res) {
     let { score, hintId } = req.body;
     const team = await TeamModel.findById(id).populate("route").exec();
     if (!team) return res.send(createResponse(DATA_NOT_FOUND));
-    // console.log(team);
-    mainQuest =
-      Array.isArray(team.mainQuest) && team.mainQuest.length > 0
-        ? team.mainQuest
-        : [];
-    sideQuest =
-      Array.isArray(team.sideQuest) && team.sideQuest.length > 0
-        ? team.sideQuest
-        : [];
+
+    mainQuest = team.mainQuest || [];
+    sideQuest = team.sideQuest || [];
 
     const quests = team.route;
-    // console.log(hintId);
-    // check if main quest
-    // console.log(quests.hints.length);
+
+    // Check if hintId matches the next main quest hint
     if (
       quests.hints.length > team.numMain &&
       quests.hints[team.numMain].toString() === hintId
     ) {
-      // if yes
-      // this is going to be 1st quest
-      if (team.numMain === 0) {
-        score = 10;
-      }
-      mainQuest = [...mainQuest, hintId];
+      // Add the hint to mainQuest and increment score
+      mainQuest.push(hintId);
+      score = 100;
     } else {
-      // console.log(hintId);
+      // Check if hintId is a side quest
       const hint = await HintsModel.findOne({ _id: hintId, type: "side" });
-      // console.log(hint);
-      // if side quest is found
-      if (hint) {
-        if (team.sideQuest.includes(hintId)) {
-          return res.send(createResponse(QUEST_ALREADY_EXISTS));
-        } else {
-          sideQuest = [...sideQuest, hintId];
-          score = 10;
-        }
+      if (!hint) return res.send(createResponse(INVALID_QUEST)); // Invalid hint
+
+      if (team.sideQuest.includes(hintId)) {
+        return res.send(createResponse(QUEST_ALREADY_EXISTS));
       } else {
-        return res.send(createResponse(INVALID_QUEST)); // invalid hint
+        // Add the hint to sideQuest and update score
+        sideQuest.push(hintId);
+        score = 50;
       }
     }
-
+    // Update the team with the new score and quest progress
     const updatedTeam = await TeamModel.findByIdAndUpdate(
       id,
       {
@@ -201,13 +204,13 @@ export async function updatePoints(req, res) {
     )
       .populate("mainQuest")
       .populate("sideQuest")
-      .select("-route -teamMembers -teamLead")
-      .exec();
-    const hint = await HintsModel.findById({ _id: hintId }).exec();
+      .select("-route -teamMembers -teamLead");
+
+    const updateHint = await HintsModel.findById(hintId).exec();
     if (!updatedTeam) return res.send(createResponse(DATA_NOT_FOUND));
-    if (!hint) return res.send(createResponse(DATA_NOT_FOUND));
+    if (!updateHint) return res.send(createResponse(DATA_NOT_FOUND));
     // res.send(createResponse(TEAM_UPDATED, updatedTeam));
-    res.send(createResponse(TEAM_UPDATED, hint));
+    res.send(createResponse(TEAM_UPDATED, updateHint));
   } catch (error) {
     console.log(error);
     res.send(createResponse(INTERNAL_SERVER_ERROR));

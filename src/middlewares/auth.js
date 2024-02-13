@@ -13,11 +13,17 @@ dotenv.config();
 //   }
 // };
 
+// export const authToken = async (req, res, next) => {
+//   next();
+// };
+
 export const authToken = async (req, res, next) => {
+  let token;
   try {
-    const token = req.headers.authorization.split(" ")[1];
     if (process.env.ACCESS_TOKEN_DISABLED === "true") next();
     else {
+      if (req.headers.authorization)
+        token = req.headers.authorization.split(" ")[1];
       if (!req.headers.authorization || !token)
         return res.send(createResponse(19));
       if (await verifyIdToken(token)) next();

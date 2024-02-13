@@ -1,140 +1,160 @@
 export const hintsData = [
   {
-    question: "What is the capital of France?",
-    answer: "Paris",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "main",
     campus: 1,
     theme: "theme1",
   },
   {
-    question: "Who wrote 'To Kill a Mockingbird'?",
-    answer: "Harper Lee",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "main",
     campus: 1,
     theme: "theme1",
   },
   {
-    question: "What is the powerhouse of the cell?",
-    answer: "Mitochondria",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "main",
     campus: 1,
     theme: "theme1",
   },
   {
-    question: "What year did World War II end?",
-    answer: "1945",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "main",
     campus: 1,
     theme: "theme1",
   },
   {
-    question: "What is the chemical symbol for water?",
-    answer: "H2O",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "main",
     campus: 1,
     theme: "theme1",
   },
   {
-    question: "Who painted the Mona Lisa?",
-    answer: "Leonardo da Vinci",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "main",
     campus: 1,
     theme: "theme2",
   },
   {
-    question: "What is the tallest mammal?",
-    answer: "Giraffe",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "main",
     campus: 1,
     theme: "theme2",
   },
   {
-    question: "What is the largest planet in our solar system?",
-    answer: "Jupiter",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "main",
     campus: 1,
     theme: "theme2",
   },
   {
-    question: "What is the square root of 64?",
-    answer: "8",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "main",
     campus: 1,
     theme: "theme2",
   },
   {
-    question: "Who wrote 'Romeo and Juliet'?",
-    answer: "William Shakespeare",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "main",
     campus: 1,
     theme: "theme2",
   },
   {
-    question: "What is the capital of Japan?",
-    answer: "Tokyo",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "side",
     campus: 2,
     theme: "theme3",
   },
   {
-    question: "Who is the author of 'To Kill a Mockingbird'?",
-    answer: "Harper Lee",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "side",
     campus: 2,
     theme: "theme3",
   },
   {
-    question: "What is the chemical formula for table salt?",
-    answer: "NaCl",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "side",
     campus: 2,
     theme: "theme3",
   },
   {
-    question: "What is the diameter of Earth?",
-    answer: "Approximately 12,742 kilometers",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "side",
     campus: 2,
     theme: "theme3",
   },
   {
-    question: "Who painted 'The Starry Night'?",
-    answer: "Vincent van Gogh",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "side",
     campus: 2,
     theme: "theme3",
   },
   {
-    question: "What is the square root of 144?",
-    answer: "12",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "side",
     campus: 2,
     theme: "theme4",
   },
   {
-    question: "Which mammal lays eggs?",
-    answer: "Platypus",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "side",
     campus: 2,
     theme: "theme4",
   },
   {
-    question: "What is the tallest building in the world?",
-    answer: "Burj Khalifa",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "side",
     campus: 2,
     theme: "theme4",
   },
   {
-    question: "Who discovered penicillin?",
-    answer: "Alexander Fleming",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "side",
     campus: 2,
     theme: "theme4",
   },
   {
-    question: "What is the capital of Australia?",
-    answer: "Canberra",
+    question:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione aut deleniti autem eaque soluta, dicta temporibus dignissimos laborum reprehenderit dolorum cupiditate exercitationem rem cumque consequatur beatae architecto, ut dolor!",
+    answer: "https://github.com",
     type: "side",
     campus: 2,
     theme: "theme4",

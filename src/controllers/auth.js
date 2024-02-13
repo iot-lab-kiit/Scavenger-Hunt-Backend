@@ -13,6 +13,8 @@ export const authorizeUser = async (req, res) => {
     const token = req.body.token;
     if (!token) return res.send(createResponse(USER_NOT_AUTHORIZED));
     const user = await firebaseAuth.verifyIdToken(token);
+    const record = await firebaseAuth.getUser(user.uid);
+    const email = record.providerData[0].email;
     const userRecord = await UserModel.findOneAndUpdate(
       { uid: user.uid },
       { name: user.name },
@@ -22,7 +24,7 @@ export const authorizeUser = async (req, res) => {
       return res.status(200).send(createResponse(STATUS_OK, userRecord));
     const newUser = new UserModel({
       uid: user.uid,
-      email: user.email,
+      email,
       name: user.name,
     });
     await newUser.save();
