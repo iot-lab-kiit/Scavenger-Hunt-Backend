@@ -106,7 +106,9 @@ export async function updateTeam(req, res) {
           const route = await getRoute();
           const updatedRoute = await QuestsModel.findById(route).exec();
           const countSide = await HintsModel.countDocuments({ type: "side" });
-
+          const updateHint = await HintsModel.findById(
+            updatedRoute.hints[0].toString()
+          );
           const updatedTeam = await TeamModel.findByIdAndUpdate(
             id,
             {
@@ -116,11 +118,13 @@ export async function updateTeam(req, res) {
               totalSide: countSide,
               theme: updatedRoute.theme,
               doc: updatedRoute.doc,
+              mainQuest: [updateHint],
             },
             { new: true }
           )
             .populate("teamLead")
-            .populate("teamMembers");
+            .populate("teamMembers")
+            .populate("mainQuest");
           return res.send(createResponse(TEAM_UPDATED, updatedTeam));
         } else return res.send(createResponse(TEAM_SIZE_NOT_MET));
       } else return res.send(createResponse(USER_NOT_AUTHORIZED));
