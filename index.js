@@ -44,7 +44,7 @@ app.use("/leaderboard", leaderboard);
 app.use("/quests", authToken, quests);
 app.use("/user", authToken, userRoute);
 app.use("/team", authToken, teamRoute);
-app.use("/init", authToken, initRoute);
+app.use("/init",authToken, initRoute);
 
 app.use("/", (req, res) => {
   res.status(200).send(createResponse(6, "Welcome to the Scavenger Hunt API"));

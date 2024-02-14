@@ -7,6 +7,8 @@ export const creditsData = [
   },
   {
     name: "Ankit Sahoo",
+    github: "https://www.linkedin.com/in/imankitsahoo/",
+    linkedIn: "https://github.com/imankitsahoo",
     designation: "Organiser",
   },
   {
