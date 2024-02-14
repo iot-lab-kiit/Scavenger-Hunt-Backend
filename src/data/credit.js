@@ -65,6 +65,7 @@ export const creditsData = [
   },
   {
     name: "Bibek Das",
+    linkedIn: "https://www.linkedin.com/in/bibek-das-411a7b2b2/",
     designation: "UI Designer",
   },
   {
