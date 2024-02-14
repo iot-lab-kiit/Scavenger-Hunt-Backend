@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const HintsSchema = new Schema({
   question: { type: String, required: true },
   type: { type: String, required: true, enum: ["main", "side"] },
-  answer: { type: String, default:null },
+  answer: { type: String, default: null },
   campus: { type: Number, required: true },
   theme: { type: String, required: true },
   imageURL: { type: String, default: null },
