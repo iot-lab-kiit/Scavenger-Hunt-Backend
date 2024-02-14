@@ -118,6 +118,7 @@ export async function updateTeam(req, res) {
               totalSide: countSide,
               theme: updatedRoute.theme,
               doc: updatedRoute.doc,
+              numMain: 1,
               mainQuest: [updateHint],
             },
             { new: true }

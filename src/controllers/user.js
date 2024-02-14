@@ -7,6 +7,7 @@ import {
   USER_CREATED,
   USER_UPDATED,
 } from "../constants/index.js";
+import HintsModel from "../model/hints.js";
 import TeamModel from "../model/team.js";
 import UserModel from "../model/user.js";
 
@@ -39,16 +40,35 @@ export const getUserTeamById = async (req, res) => {
     const id = req.params.id;
     const user = await UserModel.findOne({ uid: id }).populate("team");
     // console.log(user.team);
+    const sideQuest = await HintsModel.find({ type: "side" });
     const team = await TeamModel.findOne({ _id: user.team })
       .populate("teamLead")
       .populate("teamMembers")
       .populate("mainQuest")
-      .populate("sideQuest")
-      .select("-route");
+      .select("-route -sideQuest");
     if (!user) return res.send(createResponse(DATA_NOT_FOUND));
     if (!team) return res.send(createResponse(DATA_NOT_FOUND));
 
-    res.send(createResponse(STATUS_OK, team));
+    // res.send(createResponse(STATUS_OK, team));
+    res.send(
+      createResponse(STATUS_OK, {
+        _id: team._id,
+        teamName: team.teamName,
+        teamLead: team.teamLead,
+        teamMembers: team.teamMembers,
+        totalMain: team.totalMain,
+        totalSide: team.totalSide,
+        doc: team.doc,
+        theme: team.theme,
+        score: team.score,
+        numMain: team.numMain,
+        numSide: team.numSide,
+        mainQuest: team.mainQuest,
+        sideQuest,
+        isRegistered: team.isRegistered,
+        sideQuest,
+      })
+    );
   } catch (error) {
     console.log(error);
     res.send(createResponse(INTERNAL_SERVER_ERROR));
@@ -59,7 +79,6 @@ export const createUser = async (req, res) => {
   try {
     const newUser = new UserModel(req.body);
     await newUser.save();
-    // await newUser;
     if (!newUser) return res.send(createResponse(DATA_NOT_FOUND));
     res.send(createResponse(USER_CREATED, newUser));
   } catch (error) {
