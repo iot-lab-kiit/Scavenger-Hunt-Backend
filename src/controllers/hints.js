@@ -1,4 +1,4 @@
-import { createResponse } from "../../respo.js";
+import { createResponse } from "../utils/respo.js";
 import {
   DATA_DELETED,
   DATA_NOT_FOUND,
@@ -40,10 +40,7 @@ export function newForm(req, res) {
 
 export async function newQuestion(req, res) {
   try {
-    console.log(req.body);
-    const newQuestion = await Hints.create(req.body);
-    console.log(newQuestion);
-    console.log("Question saved!");
+    await Hints.create(req.body);
     res.redirect("/hints");
   } catch (error) {
     console.log(error);
@@ -53,8 +50,7 @@ export async function newQuestion(req, res) {
 
 export async function editForm(req, res) {
   try {
-    const question = await Hints.findById(req.params.id);
-    console.log(question);
+    await Hints.findById(req.params.id);
     res.render("edit.ejs", { question });
   } catch (error) {
     console.log(error);
@@ -64,10 +60,7 @@ export async function editForm(req, res) {
 
 export async function editQuestion(req, res) {
   try {
-    const updatedQuestion = await Hints.findByIdAndUpdate(
-      req.params.id,
-      req.body
-    );
+    await Hints.findByIdAndUpdate(req.params.id, req.body);
     return res.redirect("/hints");
   } catch (error) {
     console.log(error);

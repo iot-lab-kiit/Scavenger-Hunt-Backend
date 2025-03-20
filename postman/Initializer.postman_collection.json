@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "88c409bc-dd5d-489a-980b-234aa690509c",
+		"name": "Initializer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29585525"
+	},
+	"item": [
+		{
+			"name": "Credits",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/init/credits",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"init",
+						"credits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hints",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/init/hints",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"init",
+						"hints"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User ( out of service )",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/init/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"init",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

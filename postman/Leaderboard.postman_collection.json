@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "00c26343-88fe-4c66-9ab6-8e066d56815a",
+		"name": "Leaderboard",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29585525"
+	},
+	"item": [
+		{
+			"name": "All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/leaderboard",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"leaderboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Top N",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/leaderboard/:num",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"leaderboard",
+						":num"
+					],
+					"variable": [
+						{
+							"key": "num",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

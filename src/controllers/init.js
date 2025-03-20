@@ -1,4 +1,4 @@
-import { createResponse } from "../../respo.js";
+import { createResponse } from "../utils/respo.js";
 import { userData } from "../data/user.js";
 import { hintsData } from "../data/hints.js";
 import { creditsData } from "../data/credit.js";

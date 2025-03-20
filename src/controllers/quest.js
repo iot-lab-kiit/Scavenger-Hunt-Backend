@@ -1,4 +1,4 @@
-import { createResponse } from "../../respo.js";
+import { createResponse } from "../utils/respo.js";
 import { INTERNAL_SERVER_ERROR, STATUS_OK } from "../constants/index.js";
 import QuestModel from "../model/quests.js";
 

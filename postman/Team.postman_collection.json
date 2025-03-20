@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "f2e489e8-8cb1-4c9d-b8fc-ae2098b7a98b",
+		"name": "Team",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29585525"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    // handled by frontend\r\n    \"teamName\": \"\",\r\n    \"teamLead\": \"\", // user mongo id\r\n    \"teamMembers\": [] // user mongo id\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/team",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"team"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/team",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"team"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/team/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"team",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "",
+							"description": "MongoDB ID"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Team",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userid\": \"\",\r\n    \"isRegistered\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/team/t/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"team",
+						"t",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Team Points",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"score\": \"\",\r\n    \"hintId\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/team/p/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"team",
+						"p",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/team/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"team",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "",
+							"description": "MongoDB ID"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

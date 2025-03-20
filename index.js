@@ -11,7 +11,7 @@ import methodOverride from "method-override";
 import auth from "./src/routes/auth.js";
 import hints from "./src/routes/hints.js";
 import quests from "./src/routes/quests.js";
-import { createResponse } from "./respo.js";
+import { createResponse } from "./src/utils/respo.js";
 import initRoute from "./src/routes/init.js";
 import teamRoute from "./src/routes/team.js";
 import userRoute from "./src/routes/users.js";
@@ -44,11 +44,11 @@ app.use("/leaderboard", leaderboard);
 app.use("/quests", authToken, quests);
 app.use("/user", authToken, userRoute);
 app.use("/team", authToken, teamRoute);
-app.use("/init",authToken, initRoute);
+app.use("/init", authToken, initRoute);
 
-app.use("/", (req, res) => {
-  res.status(200).send(createResponse(6, "Welcome to the Scavenger Hunt API"));
-});
+app.use("/", (req, res) =>
+  res.status(200).send(createResponse(6, "Welcome to the Scavenger Hunt API"))
+);
 
 mongoose
   .connect(mongo_uri)

@@ -1,4 +1,4 @@
-import { createResponse } from "../../respo.js";
+import { createResponse } from "../utils/respo.js";
 import {
   DATA_DELETED,
   DATA_NOT_FOUND,
@@ -14,7 +14,6 @@ import UserModel from "../model/user.js";
 export const getAllUsers = async (req, res) => {
   try {
     const users = await UserModel.find();
-    console.log(users);
     if (!users) return res.send(createResponse(DATA_NOT_FOUND));
     res.send(createResponse(STATUS_OK, users));
   } catch (error) {

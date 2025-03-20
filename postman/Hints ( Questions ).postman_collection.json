@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "4e23add9-0f19-4f02-b5db-12f88da1b014",
+		"name": "Hints ( Questions )",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29585525"
+	},
+	"item": [
+		{
+			"name": "All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/hints",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"hints"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/hints",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"hints"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Form",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/hints/new",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"hints",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Question",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"question\": \"\",\r\n    \"type\": \"\", // main, side\r\n    \"answer\": \"\",\r\n    \"campus\": \"\",\r\n    \"theme\": \"\",\r\n    \"imageURL\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/hints/new",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"hints",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Form",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/hints/edit/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"hints",
+						"edit",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "",
+							"description": "Mongo ID"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Question",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/hints/edit/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"hints",
+						"edit",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "",
+							"description": "Mongo ID"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/hints/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"hints",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "",
+							"description": "Mongo ID"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

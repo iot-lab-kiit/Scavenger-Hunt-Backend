@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: scavenger-hunt
+    ports:
+      - "3300:3300"
+    env_file:
+      - .env

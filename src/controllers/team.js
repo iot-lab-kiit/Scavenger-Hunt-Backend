@@ -2,7 +2,7 @@ import TeamModel from "../model/team.js";
 import QuestsModel from "../model/quests.js";
 import HintsModel from "../model/hints.js";
 import UserModel from "../model/user.js";
-import { createResponse } from "../../respo.js";
+import { createResponse } from "../utils/respo.js";
 import {
   DATA_DELETED,
   DATA_NOT_FOUND,
@@ -19,14 +19,12 @@ import {
   USER_NOT_AUTHORIZED,
 } from "../constants/index.js";
 
-let routeCount = 0;
-
 const getRoute = async () => {
   try {
     const quests = await QuestsModel.find();
-    const route = quests[routeCount++ % quests.length];
-    if (routeCount === quests.length) routeCount = 0;
-    return route._id;
+    if (quests.length === 0) throw new Error("No quests found");
+    const randomIndex = Math.floor(Math.random() * quests.length);
+    return quests[randomIndex]._id;
   } catch (error) {
     console.log(error);
     return error;

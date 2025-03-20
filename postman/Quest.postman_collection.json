@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "c2701dad-940d-4fc9-8edd-6ae880e3720f",
+		"name": "Quest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29585525"
+	},
+	"item": [
+		{
+			"name": "Get All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/quests",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"quests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/quests/q/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"quests",
+						"q",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"theme\": \"\",\r\n    \"hints\": [], // hints mongo id\r\n    \"doc\": \"\" // doc link\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/quests",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"quests"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,5 +1,5 @@
 import { name } from "ejs";
-import { createResponse } from "../../respo.js";
+import { createResponse } from "../utils/respo.js";
 import {
   DATA_NOT_FOUND,
   INTERNAL_SERVER_ERROR,
